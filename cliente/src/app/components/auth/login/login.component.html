@@ -1,0 +1,71 @@
+<!---->
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+          <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-primary min-vh-100">
+              <br>
+              <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-primary text-decoration-none">
+                  <span class="fs-5 d-none d-sm-inline">Menu</span>
+              </a>
+              <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                  <li class="nav-item">
+                      <a href="#" class="nav-link align-middle px-0">
+                          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Darshboard</span>
+                      </a>
+                  </li>
+                  <li>
+                    <a routerLink='/listar' class="nav-link px-0 align-middle">
+                          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a routerLink='/auth/users' class="nav-link px-0 align-middle">
+                          <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span> </a>
+                  </li>
+                  <li>
+                    <a routerLink='/auth/register' class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Registrar</span> </a>
+                </li>
+               <!-- <li>
+                  <a routerLink='/auth/pichanga' class="nav-link px-0 align-middle">
+                      <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Pichanga</span> </a>
+                </li>-->
+              </ul>
+              <hr>
+          </div>
+      </div>
+<div class="col py-2">
+<div class="container mt-3">
+  <div class="login">
+    <div class="login-triangle"></div>
+
+    <h2 class="login-header">Login</h2>
+
+    <form #frmLogin="ngForm" class="login-container" (ngSubmit)="onLogin(frmLogin)">
+      <p>
+        <input type="email" name="email"  class="form-control form-control-lg" placeholder="Email" ngModel required>
+
+      </p>
+      <p>
+        <input type="password" name="password"  class="form-control form-control-lg" placeholder="Password" ngModel required>
+      </p>
+      <p>
+        <button type="submit" class="btn btn-success btn-lg float-end">Login</button>
+      </p>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
