@@ -34,8 +34,8 @@
             <hr>
         </div>
     </div>
- <form [formGroup]="registrationForm" >
     <div class="table-responsive-sm">
+      <form [formGroup]="myForm">
       <table *ngIf="listarUsuarios.length > 0" class="table table-bordered">
         <thead>
           <tr>
@@ -44,18 +44,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of listarUsuarios">
-            <td style="Width:180px;">{{usuario.name}}</td>
-            <td style="Width:80px;" *ngFor="let fechas of listarFechas">
-              <label *ngFor="let listaDato of listarDatos" >
-                <input type="radio" name="dato" [value]="listaDato._id" (change)="OnChange($event)">
+          <tr *ngFor="let usuario of listarUsuarios; let filas=index">
+            <td style="Width:180px;" [id]="usuario._id">{{usuario.name}}</td>
+            <td style="Width:80px;" [id]="fechas._id" *ngFor="let fechas of listarFechas">
+              <label id="listas"  *ngFor="let listaDato of listarDatos" >
+                <input name="radio" type="checkbox"  [value]="listaDato.monto" (change)="onNgModelChange($event)">
                 {{listaDato.dato}}
               </label>
             </td>
            </tr>
         </tbody>
+        <tfoot>
+          <label>Totales:</label>
+          <td style="Width:80px;" *ngFor="let fechas of listarFechas">
+              {{totales}}
+          </td>
+        </tfoot>
       </table>
-    </div>
- </form>
+    </form>
+   </div>
+
+
 </div>
 

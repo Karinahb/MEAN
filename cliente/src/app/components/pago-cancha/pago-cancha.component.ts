@@ -1,11 +1,12 @@
 import { Component,  OnInit } from '@angular/core';
-import {  FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Fecha } from 'src/app/models/fecha';
 import { Lista } from 'src/app/models/lista';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { FechaService } from 'src/app/services/fecha.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-pago-cancha',
@@ -24,7 +25,8 @@ export class PagoCanchaComponent implements OnInit {
   selectedOptions=[];
   selectedOption:any;
  totales:number = 0;
- monto!:number;
+ columnas!:number;
+ filas!:number;
     constructor(
 
       private _authService:AuthService,
@@ -34,7 +36,8 @@ export class PagoCanchaComponent implements OnInit {
                 private formBuilder: FormBuilder
                ){
                 this.myForm = formBuilder.group({
-                  totalIngresos: new FormControl("", {validators: Validators.required, updateOn: 'blur'})
+                  totalIngresos: new FormControl("", {validators: Validators.required, updateOn: 'blur'}),
+                  checkArray: this.fb.array([])
               }, {updateOn: 'change'});
                }
 
@@ -48,7 +51,8 @@ export class PagoCanchaComponent implements OnInit {
     obtenerUsuarios(){
       this._authService.getUsuarios ().subscribe(data =>{
         this.listarUsuarios = data;
-        console.log(this.listarUsuarios)
+        this.filas = this.listarUsuarios.length;
+        console.log("Filas:",this.filas)
       }, error =>{
         console.log(error);
       })
@@ -57,6 +61,8 @@ export class PagoCanchaComponent implements OnInit {
     obtenerFechas(){
       this._fechaService.getFechas().subscribe(data =>{
         this.listarFechas = data;
+        this.columnas = this.listarFechas.length;
+        console.log("Columnas:", this.columnas)
       }, error =>{
         console.log(error);
       })
@@ -70,18 +76,20 @@ export class PagoCanchaComponent implements OnInit {
       })
     }
 
-   onNgModelChange(listaDato:Lista, fechas:Fecha, usuario:Usuario){
-    console.log(listaDato);
-    console.log(fechas);
-    console.log(usuario);
-    this.totales =  (this.totales +  listaDato.monto)
-    console.log(this.totales)
-
-
-
-
+   onNgModelChange(e:any){
+    const checkArray: FormArray = this.myForm.get('checkArray') as FormArray;
+    if (e.target.checked) {
+      checkArray.push(new FormControl(e.target.value));
+    }else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: any) => {
+        if (item.value == e.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
-
-
 
 }

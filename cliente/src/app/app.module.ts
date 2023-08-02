@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -29,6 +29,7 @@ import { PagoCanchaComponent } from './components/pago-cancha/pago-cancha.compon
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
+    FormsModule
 
   ],
   providers: [],
